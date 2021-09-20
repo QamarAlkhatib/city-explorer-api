@@ -1,18 +1,20 @@
-'use strict'
+'use strict';
 
 // to use the required libraries same as importing
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
 const server = express();
+const weatherData = require('./data/weather.json');
 const PORT = process.env.PORT;
 server.use(cors());
-const weatherData = require('./data/weather.json')
 
 
 
-// localhost:3001/weather?cityname=Seattle&timezone=America/Los_Angeles
-server.get('/Weather',(req,res)=>{
+
+
+// localhost:3007/weather?cityname=Seattle&timezone=America/Los_Angeles
+server.get('/Weather', (req, res) => {
 
     let cityNameData = req.query.cityname;
     console.log(req.query);
@@ -22,16 +24,16 @@ server.get('/Weather',(req,res)=>{
     console.log(req.query);
     console.log(req.query.timezone);
 
-  
-    let weatherInfo = weatherData.find((item)=>{
-      if(item.city_name === cityNameData && item.timezone ===timeZoneData) {
-        return item;
-      }
-  
+
+    let weatherInfo = weatherData.find((item) => {
+        if (item.city_name === cityNameData && item.timezone === timeZoneData) {
+            return item;
+        }
+
     });
-    console.log('weather Info',weatherInfo);
+    console.log('weather Info', weatherInfo);
     res.send(weatherInfo);
-  });
+});
 
 
 server.get('*', (req, res) => {

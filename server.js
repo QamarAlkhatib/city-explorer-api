@@ -13,7 +13,9 @@ server.use(cors());
 
 
 
+// localhost:3007/weather?cityname=Seattle&timezone=America/Los_Angeles&description=Light rain&date=2021-03-25
 // localhost:3007/weather?cityname=Seattle&timezone=America/Los_Angeles
+
 server.get('/Weather', (req, res) => {
 
     let cityNameData = req.query.cityname;
@@ -24,9 +26,18 @@ server.get('/Weather', (req, res) => {
     console.log(req.query);
     console.log(req.query.timezone);
 
+    // let descriptionData = req.query.description;
+    // console.log(req.query);
+    // console.log(req.query.description);
+    
+    // let dateData = req.query.date;
+    // console.log(req.query);
+    // console.log(req.query.date);
 
     let weatherInfo = weatherData.find((item) => {
-        if (item.city_name === cityNameData && item.timezone === timeZoneData) {
+        // if (item.city_name === cityNameData && item.timezone === timeZoneData && item.description === descriptionData && item.valid_date === dateData) 
+        if (item.city_name === cityNameData && item.timezone === timeZoneData ) {
+            
             return item;
         }
 

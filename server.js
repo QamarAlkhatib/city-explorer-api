@@ -11,7 +11,14 @@ server.use(cors());
 
 
 
-
+class Forecast {
+    constructor(date, des, highTemp, lowTemp) {
+        this.date = date;
+        this.desc = des;
+        this.highTemp = highTemp;
+        this.lowTemp = lowTemp;
+    }
+}
 
 // localhost:3007/weather?cityname=Seattle&timezone=America/Los_Angeles&description=Light rain&date=2021-03-25
 // localhost:3007/weather?cityname=Seattle&timezone=America/Los_Angeles
@@ -22,29 +29,23 @@ server.get('/Weather', (req, res) => {
     console.log(req.query);
     console.log(req.query.cityname);
 
-    let timeZoneData = req.query.timezone;
-    console.log(req.query);
-    console.log(req.query.timezone);
 
-    // let descriptionData = req.query.description;
-    // console.log(req.query);
-    // console.log(req.query.description);
-    
-    // let dateData = req.query.date;
-    // console.log(req.query);
-    // console.log(req.query.date);
 
     let weatherInfo = weatherData.find((item) => {
-        // if (item.city_name === cityNameData && item.timezone === timeZoneData && item.description === descriptionData && item.valid_date === dateData) 
-        if (item.city_name === cityNameData && item.timezone === timeZoneData ) {
-            
+
+        if (item.city_name === cityNameData) {
             return item;
         }
 
     });
+    let newArray = weatherInfo.data.map(element => {
+        return new Forecast(element.datetime, element.weather.description, element.high_temp, element.low_temp);
+    });
+    console.log(newArray);
     console.log('weather Info', weatherInfo);
-    res.send(weatherInfo);
+    res.send(newArray);
 });
+
 
 
 server.get('*', (req, res) => {

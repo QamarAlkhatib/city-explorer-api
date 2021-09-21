@@ -12,11 +12,12 @@ server.use(cors());
 
 
 class Forecast {
-    constructor(date, des, highTemp, lowTemp) {
+    constructor(date, des, highTemp, lowTemp, cityname) {
         this.date = date;
         this.desc = des;
         this.highTemp = highTemp;
         this.lowTemp = lowTemp;
+        this.cityname = cityname
     }
 }
 
@@ -39,7 +40,7 @@ server.get('/Weather', (req, res) => {
 
     });
     let newArray = weatherInfo.data.map(element => {
-        return new Forecast(element.datetime, element.weather.description, element.high_temp, element.low_temp);
+        return new Forecast(element.datetime, element.weather.description, element.high_temp, element.low_temp, element.city_name);
     });
     console.log(newArray);
     console.log('weather Info', weatherInfo);

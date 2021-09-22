@@ -47,7 +47,7 @@ function notFoundHandler(req, res) {
 class Forecast {
     constructor(element) {
         this.date = element.datetime;
-        this.description = `low Of ${element.low_temp},high of ${element.high_temp} with `+element.weather.description;
+        this.description = element.weather.description;
     }
 }
 

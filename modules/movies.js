@@ -1,25 +1,25 @@
-'use strict';
+
 
 const axios = require('axios');
 
 function getMovieHandler(req,res){
     // res.send('movie route');
-    let searchQuerey = req.query.query;
+    let searchQuerey = req.query;
     let movieURL= `https://api.themoviedb.org/3/search/movie?query=${searchQuerey}&api_key=${process.env.API_MOVIE_KEY}`;
     console.log(movieURL);
 
     axios.get(movieURL).then(dataResult =>{
         console.log('inside sending data');
 
-        let newArrayMovie = dataResult.data.results.map(item=>{
-            return new Movie(item);
+        let newArrayMovie = dataResult.data.results.map(item=> new Movie(item));
+            res.status(200).send(newArrayMovie);
         })
-        console.log(newArrayMovie);
-        res.send(newArrayMovie);
-    }).catch(error =>{
-        res.send(error);
-    });
-}
+    //     console.log(newArrayMovie);
+    //     res.send(newArrayMovie);
+    // }).catch(error =>{
+    //     res.send(error);
+    }
+
 
 class Movie{
     constructor(item){

@@ -6,6 +6,7 @@ require('dotenv').config();
 const axios = require('axios');
 const cors = require('cors');
 const server = express();
+const weatherData = require('./data/weather.json');
 const PORT = process.env.PORT;
 server.use(cors());
 
@@ -19,12 +20,12 @@ function homeRouteHandler(req, res) {
     res.send('home Route');
 }
 
-// localhost:3007/weather?city=amman&key=*
+// localhost:3007/weather?city=amman&key=/
 function weatherRouteHandler(req, res){
     // res.send('weather route')
     let cityNameData = req.query.city;
     console.log(req.query.city)
-    let weatherURL = `https://city-explorer-class07.herokuapp.com/weather?city=${cityNameData}`;
+    let weatherURL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${cityNameData}&key=${process.env.WEATHER_API_KEY}`;
     console.log(weatherURL);
     
 
@@ -38,6 +39,7 @@ function weatherRouteHandler(req, res){
     }).catch(error => {
         console.log("error in sending the data ", error)
     });
+
 }
 
 function notFoundHandler(req, res) {
@@ -47,7 +49,7 @@ function notFoundHandler(req, res) {
 class Forecast {
     constructor(element) {
         this.date = element.datetime;
-        this.description = element.weather.description;
+        this.description = `low Of ${element.low_temp},high of ${element.high_temp} with `+element.weather.description;
     }
 }
 

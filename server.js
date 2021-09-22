@@ -10,7 +10,7 @@ const weatherData = require('./data/weather.json');
 const PORT = process.env.PORT;
 server.use(cors());
 
-const getMovieHandler = require(`./modules/weather.js`)
+const weatherRouteHandler = require(`./modules/weather.js`)
 const getMovieHandler = require(`./modules/movies.js`)
 
 server.get('/', homeRouteHandler);
@@ -27,5 +27,5 @@ function notFoundHandler(req, res) {
 }
 
 server.listen(PORT, () => {
-    console.log(`Listening on PORT ${PORT}`)
+    console.log(`Listening on PORT ${PORT}`);
 })

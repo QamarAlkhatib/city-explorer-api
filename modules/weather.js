@@ -1,6 +1,6 @@
-'use strict';
 
 const axios = require('axios');
+
 
 // localhost:3007/weather?city=amman&key=/
 function weatherRouteHandler(req, res) {
@@ -13,21 +13,22 @@ function weatherRouteHandler(req, res) {
 
     axios.get(weatherURL).then(weatherDataResult => {
         console.log('inside sending request');
-        let newArray = weatherDataResult.data.data.map(element => {
-            return new Forecast(element);
-        });
-        res.send(newArray);
-        console.log(newArray);
-    }).catch(error => {
-        console.log("error in sending the data ", error)
+        let newArray = weatherDataResult.data.data.map(element => new Forecast(element));
+        res.status(200).send(newArray);
+        
     });
 
+    //     res.send(newArray);
+    //     console.log(newArray);
+    // }).catch(error => {
+    //     console.log("error in sending the data ", error)
+    // });
 }
+
 class Forecast {
     constructor(element) {
         this.date = element.datetime;
         this.description = `low Of ${element.low_temp},high of ${element.high_temp} with ` + element.weather.description;
     }
 }
-
 module.exports = weatherRouteHandler;

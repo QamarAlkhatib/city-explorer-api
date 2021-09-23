@@ -1,12 +1,12 @@
 'use strict';
 
 // to use the required libraries same as importing
-const express = require('express');
 require('dotenv').config();
+const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const server = express();
-const weatherData = require('./data/weather.json');
+
 const PORT = process.env.PORT;
 server.use(cors());
 

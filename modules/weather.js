@@ -1,7 +1,6 @@
 
 const axios = require('axios');
 
-
 // localhost:3007/weather?city=amman&key=/
 function weatherRouteHandler(req, res) {
     // res.send('weather route')
